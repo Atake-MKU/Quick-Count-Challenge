@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Count Challenge</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #app {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        #numbers {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-items: end;
+            margin: auto;
+            width: 120px;
+            margin-bottom: 20px;
+            white-space: pre;
+        }
+
+        input, button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>Quick Count Challenge</h1>
+        <div id="numbers"></div>
+        <input type="text" id="answer" placeholder="Enter your answer">
+        <button id="submit">Submit</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        const arr = [5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8];
+        const problem = [];
+        for (let i = 0; i < 15; i++) {
+            const j = Math.floor(Math.random() * arr.length);
+            const n = arr.splice(j, 1)[0];
+            problem.push(Math.floor(Math.random() * (10 ** n - 10 ** (n - 1))) + 10 ** (n - 1));
+        }
+        const correct_answer = problem.reduce((a, b) => a + b, 0);
+        document.getElementById("numbers").innerHTML = problem.map(e => `<div>${e.toLocaleString()}</div>`).join("");
+
+        document.getElementById("submit").addEventListener("click", function() {
+            const userAnswer = parseInt(document.getElementById("answer").value);
+            if (userAnswer === correct_answer) {
+                document.getElementById("result").innerText = "Correct!";
+            } else {
+                document.getElementById("result").innerText = "Incorrect, try again!";
+            }
+        });
+    </script>
+</body>
+</html>
